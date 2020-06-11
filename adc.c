@@ -8,14 +8,15 @@
 #include "adc.h"
 
 void setup_ADC14(void) {
-    /* ADC 14 ON, S&H, Sampling Time 128 Cycles,
-     * MCLK as source, enable conversions, 10-bit conversion results */
-    ADC14->CTL0 = ADC14_CTL0_ON | ADC14_CTL0_SHP | ADC14_CTL0_SHT0__128
-            | ADC14_CTL0_SSEL__MCLK | ADC14_CTL0_ENC | ADC14_CTL1_RES__10BIT;
-
     // configure P4.7 as ADC Channel 6
     P4->SEL1 |= BIT7;
     P4->SEL0 |= BIT7;
+
+    // ADC 14 ON, S&H=16, Sampling Time 128 Cycles, SMCLK as source
+    ADC14->CTL0 = ADC14_CTL0_ON | ADC14_CTL0_SHP | ADC14_CTL0_SHT0__128 | ADC14_CTL0_SSEL__SMCLK;
+
+    // 10-bit conversion results
+    ADC14->CTL1 = ADC14_CTL1_RES__10BIT;
 
     // use Channel 6 Avcc is by default 3.3v
     ADC14->MCTL[0] = ADC14_MCTLN_INCH_6;

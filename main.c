@@ -15,6 +15,9 @@ void main(void) {
 	// config SPI parameters
 	init_spi();
 
+    SCB->SCR &= ~SCB_SCR_SLEEPONEXIT_Msk;   // Wake up on exit from ISR
+    __DSB(); // SLEEPONEXIT takes effect immediately
+
 	while(1) {
 	    // read ADC value
 	    ADC14->CTL0 |= ADC14_CTL0_SC | ADC14_CTL0_ENC;
