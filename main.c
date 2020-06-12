@@ -5,6 +5,7 @@
 /**
  * main.c
  */
+
 void main(void) {
     // stop watchdog timer
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;
@@ -26,6 +27,7 @@ void main(void) {
 }
 
 void ADC14_IRQHandler(void) {
-    // write ADC value to DAC
-    dac_write(ADC14->MEM[0]);
+    uint16_t ADC_OUT = ADC14->MEM[0];
+    if (ADC_OUT < ADC_HT && ADC_OUT > ADC_LT)
+        dac_write(ADC_OUT);
 }

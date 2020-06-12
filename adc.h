@@ -17,6 +17,9 @@
 #ifndef MY_ADC_H_
 #define MY_ADC_H_
 
+#define ADC_HT 682
+#define ADC_LT 403
+
 void setup_ADC14(void);
 
 #endif /* MY_ADC_H_ */
